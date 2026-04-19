@@ -1,17 +1,21 @@
-SRCS=systemd-service.c
+SRCS=systemd-service.c servicio1.c cliente1.c
 OBJS=$(SRCS:.c=.o)
-EXECS=$(OBJS:.o=)
+EXECS=systemd-service servicio1 cliente1
 INSTALLDIR=/usr/local/bin
 
 all: ${EXECS}
 
 systemd-service: systemd-service.o
 
-systemd-service.o: systemd-service.c
+servicio1: servicio1.o
+	${CC} -o $@ $<
 
-install: systemd-service systemd-service.service
-	install $< -t ${INSTALLDIR}
-	cp systemd-service.service /etc/systemd/system/systemd-service.service
+cliente1: cliente1.o
+	${CC} -o $@ $<
+
+install: servicio1 servicio1.service
+	install servicio1 -t ${INSTALLDIR}
+	cp servicio1.service /etc/systemd/system/servicio1.service
 
 clean:
 	rm -f ${OBJS}

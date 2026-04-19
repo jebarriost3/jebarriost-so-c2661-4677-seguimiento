@@ -1,0 +1,10 @@
+[Unit]
+Description=Servicio Eco Taller 07
+
+[Service]
+ExecStart=/usr/local/bin/servicio1
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
