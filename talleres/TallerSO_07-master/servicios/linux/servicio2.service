@@ -1,0 +1,10 @@
+[Unit]
+Description=Servicio señales Taller 07
+
+[Service]
+ExecStart=/usr/local/bin/servicio2
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
