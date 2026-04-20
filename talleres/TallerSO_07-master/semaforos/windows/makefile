@@ -1,10 +1,10 @@
 .phony: clean
 
-SRCS=jardin_ornamental.c jardin_utilidades.c jardin_limitado_ornamental.c \
+SRCS=jardin_ornamental.c jardin_utilidades.c jardin_ornamental_limitado.c \
 jardin_limitado_utilidades.c agente.c fumador.c fumadores_utilidad.c \
-jardin_ornamental_limitado.c ctrl_fumadores.c
+ctrl_fumadores.c jardin_ornamental_general.c jardin_ornamental_utilidades_general.c
 OBJS=$(SRCS:.c=.o)
-EXECS=jardin_ornamental jardin_ornamental_limitado agente fumador ctrl_fumadores
+EXECS=jardin_ornamental jardin_ornamental_limitado jardin_ornamental_general agente fumador ctrl_fumadores
 
 all: ${EXECS}
 
@@ -24,6 +24,15 @@ jardin_ornamental_limitado.o: jardin_ornamental_limitado.c jardin_ornamental_lim
 	${CC} -c $<
 
 jardin_limitado_utilidades.o: jardin_limitado_utilidades.c jardin_ornamental_limitado.h
+	${CC} -c $<
+
+jardin_ornamental_general: jardin_ornamental_general.o jardin_ornamental_utilidades_general.o
+	${CC} -o $@ $^
+
+jardin_ornamental_general.o: jardin_ornamental_general.c jardin_ornamental_general.h
+	${CC} -c $<
+
+jardin_ornamental_utilidades_general.o: jardin_ornamental_utilidades_general.c jardin_ornamental_general.h
 	${CC} -c $<
 
 agente: agente.o fumadores_utilidad.o
