@@ -2,9 +2,10 @@
 
 SRCS=jardin_ornamental.c jardin_utilidades.c jardin_ornamental_limitado.c \
 jardin_limitado_utilidades.c agente.c fumador.c fumadores_utilidad.c \
-ctrl_fumadores.c jardin_ornamental_general.c jardin_ornamental_utilidades_general.c
+ctrl_fumadores.c jardin_ornamental_general.c jardin_ornamental_utilidades_general.c \
+agente2.c fumadores2.c fumadores_utilidad2.c ctrl_fumadores2.c
 OBJS=$(SRCS:.c=.o)
-EXECS=jardin_ornamental jardin_ornamental_limitado jardin_ornamental_general agente fumador ctrl_fumadores
+EXECS=jardin_ornamental jardin_ornamental_limitado jardin_ornamental_general agente fumador ctrl_fumadores agente2 fumadores2 ctrl_fumadores2
 
 all: ${EXECS}
 
@@ -56,7 +57,29 @@ ctrl_fumadores.o: ctrl_fumadores.c fumadores.h
 fumadores_utilidad.o: fumadores_utilidad.c fumadores.h
 	${CC} -c $<
 
+agente2: agente2.o fumadores_utilidad2.o
+	${CC} -o $@ $^
+
+agente2.o: agente2.c fumadores2.h
+	${CC} -c $<
+
+fumadores2: fumadores2.o fumadores_utilidad2.o
+	${CC} -o $@ $^
+
+fumadores2.o: fumadores2.c fumadores2.h
+	${CC} -c $<
+
+ctrl_fumadores2: ctrl_fumadores2.o
+	${CC} -o $@ $<
+
+ctrl_fumadores2.o: ctrl_fumadores2.c
+	${CC} -c $<
+
+fumadores_utilidad2.o: fumadores_utilidad2.c fumadores2.h
+	${CC} -c $<
+
 clean:
 	rm -f ${OBJS}
 	rm -f ${EXECS}
+	rm -f *.exe
 	rm -f *~
